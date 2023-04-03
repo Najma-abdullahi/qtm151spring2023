@@ -35,13 +35,14 @@ United States Congress dataset
 
 Create table from codebook/dictionary
 -- SQLBook: Code
--- Active: 1679515732880@@127.0.0.1@5432@postgres
+-- Active: 1679516948130@@127.0.0.1@5432@postgres
 -- We start by deleting the old table
 -- SQL does not allow you to create a table if one already exists
 DROP TABLE IF EXISTS us_congress_members;
 
 -- Note in SQL the codebook is also called a "dictionary"
 -- The option PRIMARY KEY indicates that this is the unique identifier
+
 CREATE TABLE us_congress_members (
         member_id    int PRIMARY KEY,
         full_name    varchar(30),
@@ -60,7 +61,6 @@ CREATE TABLE us_congress_members (
 -- (iii) Include any column names with upper case in double quotations "..."
 
 DROP TABLE IF EXISTS bills_actions;
-
 CREATE TABLE bills_actions (
         "Congress"  int NOT NULL,
         bill_number int ,
@@ -85,6 +85,15 @@ Try it yourself!
 - Create a new table for "bills_subjects"
 -- SQLBook: Code
 -- Write your own code
+
+DROP TABLE IF EXISTS bills_subjects;
+
+CREATE TABLE bills_subjecs (
+        "Congress"  int NOT NULL,
+        bill_number int ,
+        bill_type   varchar(30),
+        bill_subject varchar(30)
+);
 
 
 -- SQLBook: Markup
@@ -115,6 +124,25 @@ COPY us_congress_members
 FROM 'D:\GitHub\qtm151spring2023\Lecture 18\data\us_congress_members.csv' ```
 WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
 ```
+-- SQLBook: Code
+-- Active: 1679516948130@@127.0.0.1@5432@postgres
+DROP TABLE IF EXISTS us_congress_members;
+
+CREATE TABLE us_congress_members (
+        member_id    int PRIMARY KEY,
+        full_name    varchar(30),
+        last_name    varchar(30),
+        member_title varchar(30),
+        state        varchar(30),
+        party_name   varchar(30),
+        chamber      varchar(30)
+);
+
+-- SQLBook: Code
+COPY us_congress_members
+FROM 'C:\Users\Najma Abdullahi\Documents\qtm151spring2023\Lecture 18\data\us_congress_members.csv'
+WITH (DELIMITER ',', FORMAT csv, HEADER MATCH);
+
 -- SQLBook: Code
 -- The argument associaated with COPY is the dataset in our server
 -- The argument associaated with FROM is a filepath name
